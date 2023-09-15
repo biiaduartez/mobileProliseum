@@ -77,13 +77,13 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
+
     val customFontFamily = FontFamily(Font(R.font.font_title))
     val customFontFamilyText = FontFamily(Font(R.font.font_poppins))
     val context = LocalContext.current
 
-    var textFieldsCount by remember { mutableStateOf(1) }
-
     val textFieldsData = remember { mutableStateListOf("") }
+    var textFieldsCount by remember { mutableStateOf(1) }
 
     Box(
         modifier = Modifier
@@ -281,8 +281,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                             color = Color.White,
                             fontFamily = customFontFamilyText,
                             fontWeight = FontWeight(900),
-
-                            )
+                        )
                     }
                 }
             }
