@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">MobileProliseum</string>
+    <string name="name">Proliseum</string>
+    <string name="button_inscricao">Torne-se um pro</string>
+    <string name="login">Login</string>
+    <string name="cadrasto">Ainda não tem uma conta?</string>
+    <string name="button_cadrasto">CADASTRE-SE</string>
+    <string name="esqueci_senha">Esqueci minha senha</string>
+    <string name="recuperar_senha">Para reiniciar a senha  </string>
+    <string name="recuperar_senha_dois">digite seu e-mail </string>
+    <string name="label_user">Nome de usuário</string>
+    <string name="label_nome">Nome completo</string>
+    <string name="label_email">Email</string>
+    <string name="label_senha">Senha</string>
+    <string name="button_proximo">PRÓXIMO</string>
+    <string name="menu_inicio">Inicio</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_time">Meus times</string>
+    <string name="menu_vagas">Procurar vagas</string>
+    <string name="menu_campeonatos">Campeonatos</string>
+    <string name="menu_anunciar">Anunciar FA</string>
+    <string name="button_patrocinador">Seja um patrocinador</string>
+    <string name="button_recuperar_senha">Reiniciar Senha</string>
+    <string name="button_sair">sair</string>
+    <string name="title">Vagas</string>
+    <string name="highlights">highlights:</string>
+    <string name="title_propostas">Propostas:</string>
+    <string name="title_inscritos">Inscritos:</string>
+    <string name="label_game">GAME:</string>
+    <string name="label_nickname">Nickname:</string>
+    <string name="label_funcao">Função:</string>
+</resources>
