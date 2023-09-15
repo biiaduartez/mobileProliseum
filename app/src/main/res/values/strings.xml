@@ -5,6 +5,7 @@
     <string name="login">Login</string>
     <string name="cadrasto">Ainda não tem uma conta?</string>
     <string name="button_cadrasto">CADASTRE-SE</string>
+    <string name="button_cadrastar">CADRASTAR</string>
     <string name="esqueci_senha">Esqueci minha senha</string>
     <string name="recuperar_senha">Para reiniciar a senha  </string>
     <string name="recuperar_senha_dois">digite seu e-mail </string>
@@ -28,5 +29,13 @@
     <string name="title_inscritos">Inscritos:</string>
     <string name="label_game">GAME:</string>
     <string name="label_nickname">Nickname:</string>
-    <string name="label_funcao">Função:</string>
+    <string name="label_bio">BIO:</string>
+    <string name="label_funcao">FUNÇÃO:</string>
+    <string name="label_rede_social">REDES SOCIAIS:</string>
+    <string name="label_nome_adc">ADC</string>
+    <string name="label_nome_top">TOP</string>
+    <string name="label_nome_jungler">JUNGLER</string>
+    <string name="label_nome_mid">MID</string>
+    <string name="label_nome_suporte">SUPORTE</string>
+
 </resources>
