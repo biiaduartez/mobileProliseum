@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -389,19 +390,93 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                             .background(Color.Red)
                     )
 
-                    Row {
-                        Column {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(10.dp),
+                        horizontalArrangement = Arrangement.SpaceAround,
 
+                        )
+                    {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .padding(10.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "ATUALMENTE",
+                                fontSize = 15.sp,
+                                color = Color.White,
+                                fontFamily = customFontFamilyText,
+                                fontWeight = FontWeight(900),
+                            )
+                            Image(
+                                painter = painterResource(id = R.drawable.brasao),
+                                contentDescription = ""
+                            )
+                            Text(
+                                text = "FA",
+                                fontSize = 15.sp,
+                                color = Color.White,
+                                fontFamily = customFontFamilyText,
+                                fontWeight = FontWeight(400),
+                            )
                         }
 
-                        Column {
-
+                        Column(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .padding(10.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "ELO",
+                                fontSize = 15.sp,
+                                color = Color.White,
+                                fontFamily = customFontFamilyText,
+                                fontWeight = FontWeight(900),
+                            )
+                            Image(
+                                painter = painterResource(id = R.drawable.elo),
+                                contentDescription = ""
+                            )
+                            Text(
+                                text = "DIAMOND V",
+                                fontSize = 15.sp,
+                                color = Color.White,
+                                fontFamily = customFontFamilyText,
+                                fontWeight = FontWeight(400),
+                            )
                         }
 
-                        Column {
-
+                        Column(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .padding(10.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "DESTAQUE",
+                                fontSize = 15.sp,
+                                color = Color.White,
+                                fontFamily = customFontFamilyText,
+                                fontWeight = FontWeight(900),
+                            )
+                            Image(
+                                painter = painterResource(id = R.drawable.trofeu),
+                                contentDescription = ""
+                            )
+                            Text(
+                                text = "1º LUGAR COPA PORO",
+                                fontSize = 15.sp,
+                                color = Color.White,
+                                fontFamily = customFontFamilyText,
+                                fontWeight = FontWeight(400),
+                                textAlign = TextAlign.Center
+                            )
                         }
-                        
+
                     }
 
                 }
@@ -410,7 +485,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     }
 }
-
 
 
 @Preview(showBackground = true)
