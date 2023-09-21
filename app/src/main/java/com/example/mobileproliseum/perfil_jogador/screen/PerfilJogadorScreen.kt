@@ -1,14 +1,10 @@
-package com.example.mobileproliseum
+package com.example.mobileproliseum.perfil_jogador.screen
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.util.Log
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,25 +21,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -52,51 +40,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.example.mobileproliseum.MainActivity
+import com.example.mobileproliseum.R
 import com.example.mobileproliseum.ui.theme.AzulEscuroProliseum
 import com.example.mobileproliseum.ui.theme.BlackTransparentProliseum
 import com.example.mobileproliseum.ui.theme.MobileProliseumTheme
 import com.example.mobileproliseum.ui.theme.RedProliseum
-import com.example.mobileproliseum.ui.theme.WhiteTransparentProliseum
-
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MobileProliseumTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
-        }
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun PerfilJogadorScreen() {
     val customFontFamily = FontFamily(
         Font(R.font.font_title)
     )
@@ -230,7 +196,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             ) {
                 item {
                     Text(
-                        text = "BOOM",
+                        text = stringResource(id = R.string.label_nome_jogador),
                         fontSize = 28.sp,
                         fontWeight = FontWeight(600),
                         color = Color.White
@@ -239,7 +205,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                     Spacer(modifier = Modifier.height(2.dp))
 
                     Text(
-                        text = "BOOM",
+                        text = stringResource(id = R.string.label_nome_jogador),
                         fontSize = 14.sp,
                         fontWeight = FontWeight(600),
                         color = Color.White
@@ -248,9 +214,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                     Spacer(modifier = Modifier.height(12.dp))
 
                     //jogos
-                    Column(
+                    Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalArrangement = Arrangement.Center
                     ) {
                         Card(
                             modifier = Modifier
@@ -260,6 +226,23 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                         ) {
                             Image(
                                 painter = painterResource(id = R.drawable.lol),
+                                contentDescription = "",
+                                modifier = Modifier.fillMaxSize(),
+                                alignment = Alignment.Center,
+                                colorFilter = ColorFilter.tint(AzulEscuroProliseum)
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.width(24.dp))
+
+                        Card(
+                            modifier = Modifier
+                                .height(85.dp)
+                                .width(85.dp),
+                            colors = CardDefaults.cardColors(RedProliseum)
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.adc),
                                 contentDescription = "",
                                 modifier = Modifier.fillMaxSize(),
                                 alignment = Alignment.Center,
@@ -295,7 +278,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                         }
 
                         Text(
-                            text = "Boom",
+                            text = stringResource(id = R.string.label_nome_jogador),
                             color = Color.White,
                             modifier = Modifier.padding(5.dp),
                             fontWeight = FontWeight(600),
@@ -323,7 +306,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                         }
 
                         Text(
-                            text = "Boom",
+                            text = stringResource(id = R.string.label_nome_jogador),
                             color = Color.White,
                             modifier = Modifier.padding(5.dp),
                             fontWeight = FontWeight(600),
@@ -367,62 +350,117 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
                     // linha
                     Box(
-                        modifier = modifier
+                        modifier = Modifier
                             .fillMaxWidth()
                             .height(0.5.dp)
                             .background(Color.Red)
                     )
 
-
-                    Column(
+                    Row(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(10.dp),
-                        horizontalAlignment = Alignment.Start,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Text(
-                            text = "TITULOS ",
-                            fontSize = 25.sp,
-                            color = Color.White,
-                            fontFamily = customFontFamilyText,
-                            fontWeight = FontWeight(900),
-                        )
-                        Image(
-                            painter = painterResource(id = R.drawable.trofeu),
-                            contentDescription = "",
-                            modifier = Modifier.height(110.dp)
-                        )
-                        Spacer(modifier = Modifier.height(5.dp))
-                        Text(
-                            text = "1º LUGAR COPA PORO",
-                            fontSize = 15.sp,
-                            color = Color.White,
-                            fontFamily = customFontFamilyText,
-                            fontWeight = FontWeight(400),
-                            textAlign = TextAlign.Center,
+                        horizontalArrangement = Arrangement.SpaceAround,
 
                         )
+                    {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .padding(10.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "ATUALMENTE",
+                                fontSize = 15.sp,
+                                color = Color.White,
+                                fontFamily = customFontFamilyText,
+                                fontWeight = FontWeight(900),
+                            )
+                            Image(
+                                painter = painterResource(id = R.drawable.brasao),
+                                contentDescription = ""
+                            )
+                            Text(
+                                text = "FA",
+                                fontSize = 15.sp,
+                                color = Color.White,
+                                fontFamily = customFontFamilyText,
+                                fontWeight = FontWeight(400),
+                            )
+                        }
+
+                        Column(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .padding(10.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "ELO",
+                                fontSize = 15.sp,
+                                color = Color.White,
+                                fontFamily = customFontFamilyText,
+                                fontWeight = FontWeight(900),
+                            )
+                            Image(
+                                painter = painterResource(id = R.drawable.elo),
+                                contentDescription = ""
+                            )
+                            Text(
+                                text = "DIAMOND V",
+                                fontSize = 15.sp,
+                                color = Color.White,
+                                fontFamily = customFontFamilyText,
+                                fontWeight = FontWeight(400),
+                            )
+                        }
+
+                        Column(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .padding(10.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "DESTAQUE",
+                                fontSize = 15.sp,
+                                color = Color.White,
+                                fontFamily = customFontFamilyText,
+                                fontWeight = FontWeight(900),
+                            )
+                            Image(
+                                painter = painterResource(id = R.drawable.trofeu),
+                                contentDescription = ""
+                            )
+                            Text(
+                                text = "1º LUGAR COPA PORO",
+                                fontSize = 15.sp,
+                                color = Color.White,
+                                fontFamily = customFontFamilyText,
+                                fontWeight = FontWeight(400),
+                                textAlign = TextAlign.Center
+                            )
+                        }
+
                     }
                     Box(
-                        modifier = modifier
+                        modifier = Modifier
                             .fillMaxWidth()
                             .height(0.5.dp)
                             .background(Color.Red)
                     )
                 }
-
             }
         }
+
     }
-
 }
-
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun PerfilJogadorScreenPreview() {
     MobileProliseumTheme {
-        Greeting("Android")
+        PerfilJogadorScreen()
     }
 }
