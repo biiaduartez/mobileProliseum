@@ -29,59 +29,121 @@ import com.example.mobileproliseum.R
 import com.example.mobileproliseum.cadastro.screen.CadastroJogadorScreen
 import com.example.mobileproliseum.ui.theme.MobileProliseumTheme
 
-@Composable
-
-fun header() {
-    var isMenuVisible by remember { mutableStateOf(false) }
-
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .height(150.dp)) {
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            IconButton(
-                onClick = { isMenuVisible = !isMenuVisible },
-                modifier = Modifier
-                    .size(48.dp)
-                    .background(MaterialTheme.colorScheme.primary)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.logocadastro),
-                    contentDescription = "Menu Icon",
-                    tint = if (isMenuVisible) Color.White else Color.Black
-                )
-            }
-
-            if (isMenuVisible) {
-                // Conteúdo do seu menu aqui
-                Button(
-                    onClick = {
-                        // Ação quando um item do menu é clicado
-                        isMenuVisible = false
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                ) {
-                    // Conteúdo do item do menu
-                }
-            }
-        }
-    }
 
 
-}
 
-@Preview(showBackground = true)
-@Composable
-fun HeaderPreview() {
-    MobileProliseumTheme {
-        header()
-    }
-}
+
+//class MainActivity : ComponentActivity() {
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContent {
+//            MobileProliseumTheme {
+//                // A surface container using the 'background' color from the theme
+//                Surface(
+//                    modifier = Modifier.fillMaxSize(),
+//                    color = MaterialTheme.colorScheme.background
+//                ) {
+//                    val navController = rememberNavController()
+//
+//                    NavHost(navController = navController, startDestination = "menu") {
+//                        composable("menu") {
+//                            Greeting(navController = navController)
+//                        }
+//                        composable("home") {
+//                            HomeScreen() // Certifique-se de passar os parâmetros necessários, se houver
+//                        }
+//                        composable("perfilJogador") {
+//                            PerfilJogadorScreen() // Certifique-se de passar os parâmetros necessários, se houver
+//                        }
+//
+//                        composable(route = "time") {
+//                            PerfilTimeScreen()
+//                        }
+//
+//                        composable(route = "perfil") {
+//                            PerfilJogadorScreen()
+//                        }
+//
+//                        composable(route = "perfil") {
+//                            PerfilOrganizacaoScreen()
+//                        }
+//
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    @Composable
+//    fun Greeting(navController: NavController, modifier: Modifier = Modifier) {
+//        var isMenuVisible by remember { mutableStateOf(false) }
+//        val customFontFamilyText = FontFamily(Font(R.font.font_poppins))
+//
+//        Box(modifier = Modifier.fillMaxSize()) {
+//            Row(
+//                modifier = Modifier.fillMaxWidth()
+//                    .height(intrinsicSize = IntrinsicSize.Min)
+//                    .background(AzulEscuroProliseum),
+//                horizontalArrangement = Arrangement.SpaceBetween,
+//            ) {
+//                IconButton(
+//                    onClick = { isMenuVisible = !isMenuVisible },
+//                    modifier = Modifier.size(48.dp)
+//                        .background(Color.Transparent)
+//                ) {
+//                    Icon(
+//                        painter = painterResource(id = R.drawable.logocadastro),
+//                        contentDescription = "Menu Icon",
+//                        tint = if (isMenuVisible) Color.Red else Color.White
+//                    )
+//                }
+//
+//                if (isMenuVisible) {
+//                    Column(
+//                        modifier = Modifier.fillMaxSize().padding(top = 80.dp)
+//                    ) {
+//                        MenuItem(navController, "home", R.drawable.baseline_home_24, "Home")
+//                        Spacer(modifier = Modifier.height(15.dp))
+//                        MenuItem(navController, "perfil", R.drawable.baseline_person_24, "Perfil")
+//                        Spacer(modifier = Modifier.height(15.dp))
+//                        MenuItem(
+//                            navController,
+//                            "time",
+//                            R.drawable.baseline_people_alt_24,
+//                            "Meu Time"
+//                        )
+//                        Spacer(modifier = Modifier.height(558.dp))
+//                        MenuItem(navController, "Home", R.drawable.baseline_arrow_back_24, "Sair")
+//                    }
+//                }
+//
+//                IconButton(
+//                    onClick = { navController.navigate("perfilJogador") },
+//                    modifier = Modifier.size(48.dp).background(Color.Transparent)
+//                ) {
+//                    Icon(
+//                        painter = painterResource(id = R.drawable.superpersonicon),
+//                        contentDescription = "Menu Icon",
+//                        tint = Color.White
+//                    )
+//                }
+//            }
+//        }
+//    }
+//
+//    @Composable
+//    fun MenuItem(navController: NavController, route: String, iconId: Int, label: String) {
+//        Row {
+//            Image(painter = painterResource(id = iconId), contentDescription = "")
+//            Text(
+//                text = label,
+//                modifier = Modifier.clickable { navController.navigate(route) },
+//                fontSize = 15.sp,
+//                color = Color.White,
+//                fontFamily = FontFamily(Font(R.font.font_poppins)),
+//                fontWeight = FontWeight(900)
+//            )
+//        }
+//    }
+//}
+
