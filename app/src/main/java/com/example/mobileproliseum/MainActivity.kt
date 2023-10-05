@@ -1,5 +1,6 @@
 package com.example.mobileproliseum
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -31,12 +32,14 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.colorResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import br.senai.sp.jandira.mobileproliseum.home.screen.HomeScreen
 import br.senai.sp.jandira.mobileproliseum.recuperar_senha.screen.ReiniciarSenhaScreen
 import com.example.mobileproliseum.perfil_jogador.screen.PerfilJogadorScreen
+import com.example.mobileproliseum.ui.theme.AzulEscuroProliseum
 import com.example.mobileproliseum.ui.theme.MobileProliseumTheme
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
@@ -56,9 +59,9 @@ class MainActivity : ComponentActivity() {
         var selectedTab by remember { mutableStateOf(0) }
 
         val items = listOf(
-            BottomNavItem("Home", Icons.Default.Home),
-            BottomNavItem("Profile", Icons.Default.Person),
-            BottomNavItem("Settings", Icons.Default.Settings)
+            BottomNavItem("", Icons.Default.Home),
+            BottomNavItem("", Icons.Default.Person),
+            BottomNavItem("", Icons.Default.Settings)
         )
 
         // Configurar o NavController
@@ -92,31 +95,43 @@ class MainActivity : ComponentActivity() {
             BottomNavigationBar(
                 items = items,
                 selectedTab = selectedTab,
-                onTabSelected = { index -> selectedTab = index },
-                navController = navController // Passar o NavController para a BottomNavigationBar
+                onTabSelected = { index ->
+                    selectedTab = index
+                    // Navegar para a tela correspondente ao índice clicado
+                    when (index) {
+                        0 -> navController.navigate("home")
+                        1 -> navController.navigate("profile")
+                        2 -> navController.navigate("settings")
+                    }
+                }
             )
         }
     }
-
 
     @Composable
     fun BottomNavigationBar(
         items: List<BottomNavItem>,
         selectedTab: Int,
-        onTabSelected: (Int) -> Unit,
-        navController: NavController
+        onTabSelected: (Int) -> Unit
     ) {
         val density = LocalDensity.current.density
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(2.dp)
+                .background(Color.Red)
+        )
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp * density) // Altura do BottomNavigationBar
+                .height(20.dp * density) // Altura do BottomNavigationBar
                 .background(
                     Brush.horizontalGradient(
                         listOf(
-                            Color.Blue,
-                            Color.Blue
+                            AzulEscuroProliseum,
+                            AzulEscuroProliseum
                         )
                     )
                 )
@@ -127,16 +142,9 @@ class MainActivity : ComponentActivity() {
             items.forEachIndexed { index, item ->
                 BottomNavButton(
                     item = item,
-                    isSelected = selectedTab == index
-                ) {
-                    onTabSelected(index)
-                    // Navegar para a tela correspondente ao índice clicado
-                    when (index) {
-                        0 -> navController.navigate("home")
-                        1 -> navController.navigate("profile")
-                        2 -> navController.navigate("settings")
-                    }
-                }
+                    isSelected = selectedTab == index,
+                    onTabSelected = { onTabSelected(index) }
+                )
             }
         }
     }
@@ -147,41 +155,35 @@ class MainActivity : ComponentActivity() {
         isSelected: Boolean,
         onTabSelected: () -> Unit
     ) {
-        val iconColor = if (isSelected) Color.Blue else Color.Black
+        val backgroundColor = if (isSelected) AzulEscuroProliseum else AzulEscuroProliseum
+        val iconColor = if (isSelected) Color.Red else Color.White
 
-        Card(
+        Surface(
             modifier = Modifier
-                .size(64.dp)
-                .clip(CircleShape)
-                .clickable { onTabSelected() },
+                .size(72.dp)
+                .fillMaxSize()
+                .background(backgroundColor)
+                .clickable { onTabSelected() }, // Usar a mesma cor de fundo da Row
+            color = Color.Transparent
         ) {
-            Surface(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp),
-                color = Color.Transparent
+            Row(
+                modifier = Modifier.fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceAround
             ) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Icon(
-                        item.icon,
-                        contentDescription = null,
-                        modifier = Modifier.size(32.dp),
-                        tint = iconColor
-                    )
-                    if (isSelected) {
-                        Text(
-                            text = item.title,
-                            color = iconColor
-                        )
-                    }
-                }
+                Icon(
+                    item.icon,
+                    contentDescription = null,
+                    modifier = Modifier.size(25.dp),
+                    tint = iconColor,
+                )
             }
         }
     }
 
-    data class BottomNavItem(val title: String, val icon: ImageVector)
+
+    data class BottomNavItem(
+        val
+        title: String, val icon: ImageVector
+    )
 }
