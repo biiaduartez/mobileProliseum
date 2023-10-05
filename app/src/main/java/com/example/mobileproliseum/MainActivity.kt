@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.mobileproliseum.ui.theme.MobileProliseumTheme
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -31,13 +31,13 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.foundation.layout.*
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import br.senai.sp.jandira.mobileproliseum.home.screen.HomeScreen
-import br.senai.sp.jandira.mobileproliseum.login.screen.LoginScreen
+import br.senai.sp.jandira.mobileproliseum.recuperar_senha.screen.ReiniciarSenhaScreen
 import com.example.mobileproliseum.perfil_jogador.screen.PerfilJogadorScreen
+import com.example.mobileproliseum.ui.theme.MobileProliseumTheme
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 class MainActivity : ComponentActivity() {
@@ -45,13 +45,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MobileProliseumTheme {
-                // Conteúdo da atividade aqui
                 MainContent()
             }
         }
     }
-
-    // Função de composição principal da atividade
 
     @OptIn(ExperimentalAnimationApi::class)
     @Composable
@@ -64,58 +61,43 @@ class MainActivity : ComponentActivity() {
             BottomNavItem("Settings", Icons.Default.Settings)
         )
 
-        val density = LocalDensity.current.density
-        val bottomNavHeight = (56.dp * density)
-
         // Configurar o NavController
         val navController = rememberAnimatedNavController()
 
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.Transparent)
+                .fillMaxSize()
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Bottom
+            // Conteúdo principal da atividade aqui
+            // Configurar o NavHost para a navegação entre telas
+            NavHost(
+                navController = navController,
+                startDestination = "home",
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f) // Ocupa todo o espaço restante
             ) {
-                // Conteúdo principal da atividade aqui
-
-                // Adicionar a barra de navegação inferior personalizada
-                BottomNavigationBar(
-                    items = items,
-                    selectedTab = selectedTab,
-                    onTabSelected = { index -> selectedTab = index },
-                    navController = navController // Passar o NavController para a BottomNavigationBar
-                )
-
-                // Configurar o NavHost para a navegação entre telas
-                NavHost(
-                    navController = navController,
-                    startDestination = "home"
-                ) {
-                    composable("home") {
-                        HomeScreen()
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                        )
-                    }
-                    composable("profile") {
-                        PerfilJogadorScreen()
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                        )
-                    }
-                    composable("settings") {
-                        LoginScreen()
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                        )
-                    }
+                composable("home") {
+                    HomeScreen()
+                }
+                composable("profile") {
+                    PerfilJogadorScreen()
+                }
+                composable("settings") {
+                    ReiniciarSenhaScreen()
                 }
             }
+
+            // Adicionar a barra de navegação inferior personalizada
+            BottomNavigationBar(
+                items = items,
+                selectedTab = selectedTab,
+                onTabSelected = { index -> selectedTab = index },
+                navController = navController // Passar o NavController para a BottomNavigationBar
+            )
         }
     }
+
 
     @Composable
     fun BottomNavigationBar(
@@ -125,26 +107,11 @@ class MainActivity : ComponentActivity() {
         navController: NavController
     ) {
         val density = LocalDensity.current.density
-        val bottomNavHeight = (20.dp * density)
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(3.dp)
-                .background(
-                    Brush.horizontalGradient(
-                        listOf(
-                            Color.Red,
-                            Color.Red
-                        )
-                    )
-                )
-        )
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(bottomNavHeight)
+                .height(56.dp * density) // Altura do BottomNavigationBar
                 .background(
                     Brush.horizontalGradient(
                         listOf(
@@ -160,17 +127,16 @@ class MainActivity : ComponentActivity() {
             items.forEachIndexed { index, item ->
                 BottomNavButton(
                     item = item,
-                    isSelected = selectedTab == index,
-                    onTabSelected = {
-                        onTabSelected(index)
-                        // Navegar para a tela correspondente ao índice clicado
-                        when (index) {
-                            0 -> navController.navigate("home")
-                            1 -> navController.navigate("profile")
-                            2 -> navController.navigate("settings")
-                        }
+                    isSelected = selectedTab == index
+                ) {
+                    onTabSelected(index)
+                    // Navegar para a tela correspondente ao índice clicado
+                    when (index) {
+                        0 -> navController.navigate("home")
+                        1 -> navController.navigate("profile")
+                        2 -> navController.navigate("settings")
                     }
-                )
+                }
             }
         }
     }
@@ -219,15 +185,3 @@ class MainActivity : ComponentActivity() {
 
     data class BottomNavItem(val title: String, val icon: ImageVector)
 }
-
-
-
-
-
-
-
-
-
-
-
-

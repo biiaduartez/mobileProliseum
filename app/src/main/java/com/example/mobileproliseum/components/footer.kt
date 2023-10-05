@@ -113,9 +113,8 @@ fun BottomNavigationBar(
         items.forEachIndexed { index, item ->
             BottomNavButton(
                 item = item,
-                isSelected = selectedTab == index,
-                onTabSelected = { onTabSelected(index) }
-            )
+                isSelected = selectedTab == index
+            ) { onTabSelected(index) }
         }
     }
 }
