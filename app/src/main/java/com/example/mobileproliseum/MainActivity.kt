@@ -1,10 +1,12 @@
 package com.example.mobileproliseum
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,6 +19,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -30,9 +34,18 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -41,6 +54,7 @@ import br.senai.sp.jandira.mobileproliseum.recuperar_senha.screen.ReiniciarSenha
 import com.example.mobileproliseum.perfil_jogador.screen.PerfilJogadorScreen
 import com.example.mobileproliseum.ui.theme.AzulEscuroProliseum
 import com.example.mobileproliseum.ui.theme.MobileProliseumTheme
+import com.example.mobileproliseum.ui.theme.RedProliseum
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 class MainActivity : ComponentActivity() {
@@ -48,142 +62,331 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MobileProliseumTheme {
-                MainContent()
+                ListTimesScreen()
             }
         }
     }
 
-    @OptIn(ExperimentalAnimationApi::class)
     @Composable
-    fun MainContent() {
-        var selectedTab by remember { mutableStateOf(0) }
+    fun ListTimesScreen() {
 
-        val items = listOf(
-            BottomNavItem("", Icons.Default.Home),
-            BottomNavItem("", Icons.Default.Person),
-            BottomNavItem("", Icons.Default.Settings)
+        val customFontFamily = FontFamily(
+            Font(R.font.font_title)
+        )
+        val customFontFamilyText = FontFamily(
+            Font(R.font.font_poppins)
         )
 
-        // Configurar o NavController
-        val navController = rememberAnimatedNavController()
+        val context = LocalContext.current
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            // Conteúdo principal da atividade aqui
-            // Configurar o NavHost para a navegação entre telas
-            NavHost(
-                navController = navController,
-                startDestination = "home",
-                modifier = Modifier
-                    .fillMaxSize()
-                    .weight(1f) // Ocupa todo o espaço restante
-            ) {
-                composable("home") {
-                    HomeScreen()
-                }
-                composable("profile") {
-                    PerfilJogadorScreen()
-                }
-                composable("settings") {
-                    ReiniciarSenhaScreen()
-                }
-            }
-
-            // Adicionar a barra de navegação inferior personalizada
-            BottomNavigationBar(
-                items = items,
-                selectedTab = selectedTab,
-                onTabSelected = { index ->
-                    selectedTab = index
-                    // Navegar para a tela correspondente ao índice clicado
-                    when (index) {
-                        0 -> navController.navigate("home")
-                        1 -> navController.navigate("profile")
-                        2 -> navController.navigate("settings")
-                    }
-                }
-            )
-        }
-    }
-
-    @Composable
-    fun BottomNavigationBar(
-        items: List<BottomNavItem>,
-        selectedTab: Int,
-        onTabSelected: (Int) -> Unit
-    ) {
-        val density = LocalDensity.current.density
 
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(2.dp)
-                .background(Color.Red)
-        )
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(20.dp * density) // Altura do BottomNavigationBar
+                .fillMaxSize()
                 .background(
-                    Brush.horizontalGradient(
+                    brush = Brush.horizontalGradient(
                         listOf(
-                            AzulEscuroProliseum,
-                            AzulEscuroProliseum
+                            AzulEscuroProliseum, AzulEscuroProliseum
                         )
                     )
                 )
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            items.forEachIndexed { index, item ->
-                BottomNavButton(
-                    item = item,
-                    isSelected = selectedTab == index,
-                    onTabSelected = { onTabSelected(index) }
-                )
-            }
-        }
-    }
-
-    @Composable
-    fun BottomNavButton(
-        item: BottomNavItem,
-        isSelected: Boolean,
-        onTabSelected: () -> Unit
-    ) {
-        val backgroundColor = if (isSelected) AzulEscuroProliseum else AzulEscuroProliseum
-        val iconColor = if (isSelected) Color.Red else Color.White
-
-        Surface(
-            modifier = Modifier
-                .size(72.dp)
-                .fillMaxSize()
-                .background(backgroundColor)
-                .clickable { onTabSelected() }, // Usar a mesma cor de fundo da Row
-            color = Color.Transparent
         ) {
             Row(
-                modifier = Modifier.fillMaxSize(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceAround
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(15.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.Top
             ) {
+
                 Icon(
-                    item.icon,
-                    contentDescription = null,
-                    modifier = Modifier.size(25.dp),
-                    tint = iconColor,
+                    modifier = Modifier.clickable {
+                        val intent = Intent(context, MainActivity::class.java)
+                        context.startActivity(intent)
+                    },
+                    painter = painterResource(id = R.drawable.arrow_back_32),
+                    contentDescription = stringResource(id = R.string.button_sair),
+                    tint = Color.White
                 )
+            }
+            Column(
+                modifier = Modifier.padding(top = 100.dp),
+            ) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    item {
+                        Column {
+                            Card(
+                                modifier = Modifier
+                                    .height(85.dp)
+                                    .width(85.dp),
+                                colors = CardDefaults.cardColors(RedProliseum)
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.lol),
+                                    contentDescription = "",
+                                    modifier = Modifier.fillMaxSize(),
+                                    alignment = Alignment.Center,
+                                    colorFilter = ColorFilter.tint(AzulEscuroProliseum)
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(25.dp))
+
+                        LazyRow(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            item {
+                                Row(
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Column(
+                                        verticalArrangement = Arrangement.Center,
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.simbolo),
+                                            contentDescription = ""
+                                        )
+                                        Text(
+                                            text = "BOOM",
+                                            color = Color.White,
+                                            fontWeight = FontWeight(600),
+                                            fontSize = 16.sp,
+                                            fontFamily = customFontFamilyText,
+                                            textAlign = TextAlign.Center
+                                        )
+                                    }
+
+                                    Column(
+                                        verticalArrangement = Arrangement.Center,
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.simbolo),
+                                            contentDescription = ""
+                                        )
+                                        Text(
+                                            text = "BOOM ACADEMY",
+                                            color = Color.White,
+                                            fontWeight = FontWeight(600),
+                                            fontSize = 16.sp,
+                                            fontFamily = customFontFamilyText,
+                                            textAlign = TextAlign.Center
+                                        )
+
+                                    }
+
+                                    Icon(
+                                        modifier = Modifier
+                                            .clickable {
+                                                val intent =
+                                                    Intent(context, MainActivity::class.java)
+                                                context.startActivity(intent)
+                                            }
+                                            .height(50.dp),
+                                        painter = painterResource(id = R.drawable.baseline_add_24),
+                                        contentDescription = stringResource(id = R.string.button_sair),
+                                        tint = Color.White
+                                    )
+                                }
+
+
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(25.dp))
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(0.5.dp)
+                                .background(Color.Red)
+                        )
+
+                        Spacer(modifier = Modifier.height(35.dp))
+
+                        Column {
+                            Card(
+                                modifier = Modifier
+                                    .height(85.dp)
+                                    .width(85.dp),
+                                colors = CardDefaults.cardColors(RedProliseum)
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.csgo),
+                                    contentDescription = "",
+                                    modifier = Modifier.fillMaxSize(),
+                                    alignment = Alignment.Center,
+                                    colorFilter = ColorFilter.tint(AzulEscuroProliseum)
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(35.dp))
+
+                        LazyRow(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            item {
+                                Row(
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Column(
+                                        verticalArrangement = Arrangement.Center,
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.simbolo),
+                                            contentDescription = ""
+                                        )
+                                        Text(
+                                            text = "BOOM",
+                                            color = Color.White,
+                                            fontWeight = FontWeight(600),
+                                            fontSize = 16.sp,
+                                            fontFamily = customFontFamilyText,
+                                            textAlign = TextAlign.Center
+                                        )
+                                    }
+
+                                    Column(
+                                        verticalArrangement = Arrangement.Center,
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.simbolo),
+                                            contentDescription = ""
+                                        )
+                                        Text(
+                                            text = "BOOM ACADEMY",
+                                            color = Color.White,
+                                            fontWeight = FontWeight(600),
+                                            fontSize = 16.sp,
+                                            fontFamily = customFontFamilyText,
+                                            textAlign = TextAlign.Center
+                                        )
+                                    }
+                                    Icon(
+                                        modifier = Modifier
+                                            .clickable {
+                                                val intent =
+                                                    Intent(context, MainActivity::class.java)
+                                                context.startActivity(intent)
+                                            }
+                                            .height(50.dp),
+                                        painter = painterResource(id = R.drawable.baseline_add_24),
+                                        contentDescription = stringResource(id = R.string.button_sair),
+                                        tint = Color.White
+                                    )
+                                }
+                            }
+                        }
+
+
+                        Spacer(modifier = Modifier.height(25.dp))
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(0.5.dp)
+                                .background(Color.Red)
+                        )
+
+                        Spacer(modifier = Modifier.height(35.dp))
+
+                        Column {
+                            Card(
+                                modifier = Modifier
+                                    .height(85.dp)
+                                    .width(85.dp),
+                                colors = CardDefaults.cardColors(RedProliseum)
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.valorant),
+                                    contentDescription = "",
+                                    modifier = Modifier.fillMaxSize(),
+                                    alignment = Alignment.Center,
+                                    colorFilter = ColorFilter.tint(AzulEscuroProliseum)
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(35.dp))
+                        LazyRow(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            item {
+                                Row(
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Column(
+                                        verticalArrangement = Arrangement.Center,
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.simbolo),
+                                            contentDescription = ""
+                                        )
+                                        Text(
+                                            text = "BOOM",
+                                            color = Color.White,
+                                            fontWeight = FontWeight(600),
+                                            fontSize = 16.sp,
+                                            fontFamily = customFontFamilyText,
+                                            textAlign = TextAlign.Center
+                                        )
+                                    }
+
+                                    Column(
+                                        verticalArrangement = Arrangement.Center,
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.simbolo),
+                                            contentDescription = ""
+                                        )
+                                        Text(
+                                            text = "BOOM ACADEMY",
+                                            color = Color.White,
+                                            fontWeight = FontWeight(600),
+                                            fontSize = 16.sp,
+                                            fontFamily = customFontFamilyText,
+                                            textAlign = TextAlign.Center
+                                        )
+                                    }
+                                    Icon(
+                                        modifier = Modifier
+                                            .clickable {
+                                                val intent =
+                                                    Intent(context, MainActivity::class.java)
+                                                context.startActivity(intent)
+                                            }
+                                            .height(50.dp),
+                                        painter = painterResource(id = R.drawable.baseline_add_24),
+                                        contentDescription = stringResource(id = R.string.button_sair),
+                                        tint = Color.White
+                                    )
+                                }
+                            }
+                        }
+
+                    }
+
+
+
+                }
             }
         }
     }
-
-
-    data class BottomNavItem(
-        val
-        title: String, val icon: ImageVector
-    )
 }
+
