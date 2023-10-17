@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
@@ -36,6 +37,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
@@ -53,6 +55,7 @@ import br.senai.sp.jandira.mobileproliseum.home.screen.HomeScreen
 import br.senai.sp.jandira.mobileproliseum.recuperar_senha.screen.ReiniciarSenhaScreen
 import com.example.mobileproliseum.perfil_jogador.screen.PerfilJogadorScreen
 import com.example.mobileproliseum.ui.theme.AzulEscuroProliseum
+import com.example.mobileproliseum.ui.theme.BlackTransparentProliseum
 import com.example.mobileproliseum.ui.theme.MobileProliseumTheme
 import com.example.mobileproliseum.ui.theme.RedProliseum
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -62,13 +65,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MobileProliseumTheme {
-                ListTimesScreen()
+                JogadoresDisponiveisScreen()
             }
         }
     }
 
     @Composable
-    fun ListTimesScreen() {
+    fun JogadoresDisponiveisScreen() {
 
         val customFontFamily = FontFamily(
             Font(R.font.font_title)
@@ -76,9 +79,6 @@ class MainActivity : ComponentActivity() {
         val customFontFamilyText = FontFamily(
             Font(R.font.font_poppins)
         )
-
-        val context = LocalContext.current
-
 
         Box(
             modifier = Modifier
@@ -91,302 +91,321 @@ class MainActivity : ComponentActivity() {
                     )
                 )
         ) {
-            Row(
+            Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(15.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.Top
+                    .fillMaxWidth()
+                    .padding(top = 50.dp)
             ) {
-
-                Icon(
-                    modifier = Modifier.clickable {
-                        val intent = Intent(context, MainActivity::class.java)
-                        context.startActivity(intent)
-                    },
-                    painter = painterResource(id = R.drawable.arrow_back_32),
-                    contentDescription = stringResource(id = R.string.button_sair),
-                    tint = Color.White
+                Image(
+                    painter = painterResource(id = R.drawable.fundotelas),
+                    contentDescription = "",
                 )
             }
-            Column(
-                modifier = Modifier.padding(top = 100.dp),
+
+            Text(
+                text = "JOGADORES DISPONIVEIS",
+                modifier = Modifier
+                    .padding(start = 20.dp, top = 65.dp)
+                    .width(180.dp),
+                color = Color.White,
+                fontSize = 24.sp,
+                fontFamily = customFontFamilyText,
+                fontWeight = FontWeight(900)
+            )
+
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 180.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    item {
-                        Column {
-                            Card(
-                                modifier = Modifier
-                                    .height(85.dp)
-                                    .width(85.dp),
-                                colors = CardDefaults.cardColors(RedProliseum)
-                            ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.lol),
-                                    contentDescription = "",
-                                    modifier = Modifier.fillMaxSize(),
-                                    alignment = Alignment.Center,
-                                    colorFilter = ColorFilter.tint(AzulEscuroProliseum)
-                                )
-                            }
-                        }
-
-                        Spacer(modifier = Modifier.height(25.dp))
-
-                        LazyRow(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            item {
-                                Row(
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    modifier = Modifier.fillMaxWidth()
-                                ) {
-                                    Column(
-                                        verticalArrangement = Arrangement.Center,
-                                        horizontalAlignment = Alignment.CenterHorizontally
-                                    ) {
-                                        Image(
-                                            painter = painterResource(id = R.drawable.simbolo),
-                                            contentDescription = ""
-                                        )
-                                        Text(
-                                            text = "BOOM",
-                                            color = Color.White,
-                                            fontWeight = FontWeight(600),
-                                            fontSize = 16.sp,
-                                            fontFamily = customFontFamilyText,
-                                            textAlign = TextAlign.Center
-                                        )
-                                    }
-
-                                    Column(
-                                        verticalArrangement = Arrangement.Center,
-                                        horizontalAlignment = Alignment.CenterHorizontally
-                                    ) {
-                                        Image(
-                                            painter = painterResource(id = R.drawable.simbolo),
-                                            contentDescription = ""
-                                        )
-                                        Text(
-                                            text = "BOOM ACADEMY",
-                                            color = Color.White,
-                                            fontWeight = FontWeight(600),
-                                            fontSize = 16.sp,
-                                            fontFamily = customFontFamilyText,
-                                            textAlign = TextAlign.Center
-                                        )
-
-                                    }
-
-                                    Icon(
-                                        modifier = Modifier
-                                            .clickable {
-                                                val intent =
-                                                    Intent(context, MainActivity::class.java)
-                                                context.startActivity(intent)
-                                            }
-                                            .height(50.dp),
-                                        painter = painterResource(id = R.drawable.baseline_add_24),
-                                        contentDescription = stringResource(id = R.string.button_sair),
-                                        tint = Color.White
-                                    )
-                                }
-
-
-                            }
-                        }
-
-                        Spacer(modifier = Modifier.height(25.dp))
-
+                item {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .align(Alignment.Center),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         Box(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .height(0.5.dp)
-                                .background(Color.Red)
-                        )
-
-                        Spacer(modifier = Modifier.height(35.dp))
-
-                        Column {
-                            Card(
+                                .background(
+                                    Brush.horizontalGradient(
+                                        listOf(
+                                            BlackTransparentProliseum,
+                                            BlackTransparentProliseum
+                                        )
+                                    )
+                                )
+                                .width(280.dp)
+                        ) {
+                            Column(
                                 modifier = Modifier
-                                    .height(85.dp)
-                                    .width(85.dp),
-                                colors = CardDefaults.cardColors(RedProliseum)
+                                    .fillMaxSize()
+                                    .padding(16.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Image(
-                                    painter = painterResource(id = R.drawable.csgo),
-                                    contentDescription = "",
-                                    modifier = Modifier.fillMaxSize(),
-                                    alignment = Alignment.Center,
-                                    colorFilter = ColorFilter.tint(AzulEscuroProliseum)
+                                    painter = painterResource(id = R.drawable.superpersonicon),
+                                    contentDescription = " ",
+                                    alignment = Alignment.Center
                                 )
-                            }
-                        }
 
-                        Spacer(modifier = Modifier.height(35.dp))
+                                Text(
+                                    text = stringResource(id = R.string.label_nome_jogador),
+                                    textAlign = TextAlign.Center,
+                                    color = Color.White,
+                                    fontFamily = customFontFamilyText,
+                                    fontWeight = FontWeight(900),
+                                    fontSize = 22.sp,
+                                    modifier = Modifier.padding(top = 10.dp)
+                                )
 
-                        LazyRow(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            item {
                                 Row(
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    modifier = Modifier.fillMaxWidth()
-                                ) {
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(16.dp),
+
+                                    ) {
                                     Column(
                                         verticalArrangement = Arrangement.Center,
                                         horizontalAlignment = Alignment.CenterHorizontally
                                     ) {
+                                        Text(
+                                            text = "ELO",
+                                            textAlign = TextAlign.Center,
+                                            color = Color.White,
+                                            fontFamily = customFontFamilyText,
+                                            fontWeight = FontWeight(600),
+                                            modifier = Modifier.padding(10.dp)
+                                        )
+
                                         Image(
-                                            painter = painterResource(id = R.drawable.simbolo),
+                                            painter = painterResource(id = R.drawable.elo),
                                             contentDescription = ""
                                         )
+
                                         Text(
-                                            text = "BOOM",
+                                            text = "DIAMOND V",
+                                            textAlign = TextAlign.Center,
                                             color = Color.White,
-                                            fontWeight = FontWeight(600),
-                                            fontSize = 16.sp,
                                             fontFamily = customFontFamilyText,
-                                            textAlign = TextAlign.Center
+                                            fontWeight = FontWeight(600),
+                                            modifier = Modifier.padding(top = 10.dp)
                                         )
                                     }
+
+                                    Spacer(modifier = Modifier.width(25.dp))
 
                                     Column(
                                         verticalArrangement = Arrangement.Center,
                                         horizontalAlignment = Alignment.CenterHorizontally
                                     ) {
-                                        Image(
-                                            painter = painterResource(id = R.drawable.simbolo),
-                                            contentDescription = ""
-                                        )
                                         Text(
-                                            text = "BOOM ACADEMY",
+                                            text = "FUNÇÃO",
+                                            textAlign = TextAlign.Center,
                                             color = Color.White,
-                                            fontWeight = FontWeight(600),
-                                            fontSize = 16.sp,
                                             fontFamily = customFontFamilyText,
-                                            textAlign = TextAlign.Center
+                                            fontWeight = FontWeight(600),
+                                            modifier = Modifier.padding(10.dp)
+                                        )
+
+                                        Image(
+                                            painter = painterResource(id = R.drawable.mid),
+                                            contentDescription = "",
+                                            modifier = Modifier.height(45.dp)
+                                        )
+
+                                        Text(
+                                            text = "MID",
+                                            textAlign = TextAlign.Center,
+                                            color = Color.White,
+                                            fontFamily = customFontFamilyText,
+                                            fontWeight = FontWeight(600),
+                                            modifier = Modifier.padding(top = 10.dp)
                                         )
                                     }
-                                    Icon(
-                                        modifier = Modifier
-                                            .clickable {
-                                                val intent =
-                                                    Intent(context, MainActivity::class.java)
-                                                context.startActivity(intent)
-                                            }
-                                            .height(50.dp),
-                                        painter = painterResource(id = R.drawable.baseline_add_24),
-                                        contentDescription = stringResource(id = R.string.button_sair),
-                                        tint = Color.White
-                                    )
                                 }
+
+                                Text(
+                                    text = "HORÁRIO",
+                                    textAlign = TextAlign.Center,
+                                    color = Color.White,
+                                    fontFamily = customFontFamilyText,
+                                    fontWeight = FontWeight(600),
+                                    modifier = Modifier.padding(top = 10.dp)
+                                )
+
+                                // SUBSTITUIR OS TEXT PELO COMPONENTE DE TIME ( IMPORTAR DO GIT DO GABRIEL)
+
+                                Text(
+                                    text = "19:00 - 22:00",
+                                    textAlign = TextAlign.Center,
+                                    color = Color.White,
+                                    fontFamily = customFontFamilyText,
+                                    fontWeight = FontWeight(600),
+                                    modifier = Modifier
+                                        .padding(top = 10.dp)
+                                        .width(50.dp)
+                                )
+
+
+
+
+                                Button(
+                                    onClick = { /*TODO*/ },
+                                    colors = ButtonDefaults.buttonColors(Color.Transparent)
+                                ) {
+                                    Text(text = "Mais Informações")
+                                }
+
+
                             }
+
                         }
 
-
-                        Spacer(modifier = Modifier.height(25.dp))
-
+                        Spacer(modifier = Modifier.height(30.dp))
+                        
                         Box(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .height(0.5.dp)
-                                .background(Color.Red)
-                        )
-
-                        Spacer(modifier = Modifier.height(35.dp))
-
-                        Column {
-                            Card(
+                                .background(
+                                    Brush.horizontalGradient(
+                                        listOf(
+                                            BlackTransparentProliseum,
+                                            BlackTransparentProliseum
+                                        )
+                                    )
+                                )
+                                .width(280.dp)
+                        ) {
+                            Column(
                                 modifier = Modifier
-                                    .height(85.dp)
-                                    .width(85.dp),
-                                colors = CardDefaults.cardColors(RedProliseum)
+                                    .fillMaxSize()
+                                    .padding(16.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Image(
-                                    painter = painterResource(id = R.drawable.valorant),
-                                    contentDescription = "",
-                                    modifier = Modifier.fillMaxSize(),
-                                    alignment = Alignment.Center,
-                                    colorFilter = ColorFilter.tint(AzulEscuroProliseum)
+                                    painter = painterResource(id = R.drawable.superpersonicon),
+                                    contentDescription = " ",
+                                    alignment = Alignment.Center
                                 )
-                            }
-                        }
 
-                        Spacer(modifier = Modifier.height(35.dp))
-                        LazyRow(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            item {
+                                Text(
+                                    text = stringResource(id = R.string.label_nome_jogador),
+                                    textAlign = TextAlign.Center,
+                                    color = Color.White,
+                                    fontFamily = customFontFamilyText,
+                                    fontWeight = FontWeight(900),
+                                    fontSize = 22.sp,
+                                    modifier = Modifier.padding(top = 10.dp)
+                                )
+
                                 Row(
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    modifier = Modifier.fillMaxWidth()
-                                ) {
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(16.dp),
+
+                                    ) {
                                     Column(
                                         verticalArrangement = Arrangement.Center,
                                         horizontalAlignment = Alignment.CenterHorizontally
                                     ) {
+                                        Text(
+                                            text = "ELO",
+                                            textAlign = TextAlign.Center,
+                                            color = Color.White,
+                                            fontFamily = customFontFamilyText,
+                                            fontWeight = FontWeight(600),
+                                            modifier = Modifier.padding(10.dp)
+                                        )
+
                                         Image(
-                                            painter = painterResource(id = R.drawable.simbolo),
+                                            painter = painterResource(id = R.drawable.elo),
                                             contentDescription = ""
                                         )
+
                                         Text(
-                                            text = "BOOM",
+                                            text = "DIAMOND V",
+                                            textAlign = TextAlign.Center,
                                             color = Color.White,
-                                            fontWeight = FontWeight(600),
-                                            fontSize = 16.sp,
                                             fontFamily = customFontFamilyText,
-                                            textAlign = TextAlign.Center
+                                            fontWeight = FontWeight(600),
+                                            modifier = Modifier.padding(top = 10.dp)
                                         )
                                     }
+
+                                    Spacer(modifier = Modifier.width(25.dp))
 
                                     Column(
                                         verticalArrangement = Arrangement.Center,
                                         horizontalAlignment = Alignment.CenterHorizontally
                                     ) {
-                                        Image(
-                                            painter = painterResource(id = R.drawable.simbolo),
-                                            contentDescription = ""
-                                        )
                                         Text(
-                                            text = "BOOM ACADEMY",
+                                            text = "FUNÇÃO",
+                                            textAlign = TextAlign.Center,
                                             color = Color.White,
-                                            fontWeight = FontWeight(600),
-                                            fontSize = 16.sp,
                                             fontFamily = customFontFamilyText,
-                                            textAlign = TextAlign.Center
+                                            fontWeight = FontWeight(600),
+                                            modifier = Modifier.padding(10.dp)
+                                        )
+
+                                        Image(
+                                            painter = painterResource(id = R.drawable.mid),
+                                            contentDescription = "",
+                                            modifier = Modifier.height(45.dp)
+                                        )
+
+                                        Text(
+                                            text = "MID",
+                                            textAlign = TextAlign.Center,
+                                            color = Color.White,
+                                            fontFamily = customFontFamilyText,
+                                            fontWeight = FontWeight(600),
+                                            modifier = Modifier.padding(top = 10.dp)
                                         )
                                     }
-                                    Icon(
-                                        modifier = Modifier
-                                            .clickable {
-                                                val intent =
-                                                    Intent(context, MainActivity::class.java)
-                                                context.startActivity(intent)
-                                            }
-                                            .height(50.dp),
-                                        painter = painterResource(id = R.drawable.baseline_add_24),
-                                        contentDescription = stringResource(id = R.string.button_sair),
-                                        tint = Color.White
-                                    )
                                 }
-                            }
-                        }
 
+                                Text(
+                                    text = "HORÁRIO",
+                                    textAlign = TextAlign.Center,
+                                    color = Color.White,
+                                    fontFamily = customFontFamilyText,
+                                    fontWeight = FontWeight(600),
+                                    modifier = Modifier.padding(top = 10.dp)
+                                )
+
+                                // SUBSTITUIR OS TEXT PELO COMPONENTE DE TIME ( IMPORTAR DO GIT DO GABRIEL)
+
+                                Text(
+                                    text = "19:00 - 22:00",
+                                    textAlign = TextAlign.Center,
+                                    color = Color.White,
+                                    fontFamily = customFontFamilyText,
+                                    fontWeight = FontWeight(600),
+                                    modifier = Modifier
+                                        .padding(top = 10.dp)
+                                        .width(50.dp)
+                                )
+
+
+
+
+                                Button(
+                                    onClick = { /*TODO*/ },
+                                    colors = ButtonDefaults.buttonColors(Color.Transparent)
+                                ) {
+                                    Text(text = "Mais Informações")
+                                }
+
+
+                            }
+
+                        }
                     }
-
-
-
                 }
             }
         }
     }
 }
+
 
