@@ -351,8 +351,6 @@ fun JogadoresDisponiveisScreen() {
                             )
 
 
-
-
                             Button(
                                 onClick = { /*TODO*/ },
                                 colors = ButtonDefaults.buttonColors(Color.Transparent)
