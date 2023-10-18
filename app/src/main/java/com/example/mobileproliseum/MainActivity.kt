@@ -52,7 +52,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import br.senai.sp.jandira.mobileproliseum.home.screen.HomeScreen
-import br.senai.sp.jandira.mobileproliseum.recuperar_senha.screen.ReiniciarSenhaScreen
+import com.example.mobileproliseum.components.TimePickerComponent
 import com.example.mobileproliseum.perfil_jogador.screen.PerfilJogadorScreen
 import com.example.mobileproliseum.ui.theme.AzulEscuroProliseum
 import com.example.mobileproliseum.ui.theme.BlackTransparentProliseum
@@ -65,13 +65,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MobileProliseumTheme {
-                GerenciarPublicacao()
+                PubliTimeScreen()
             }
         }
     }
 
+
     @Composable
-    fun GerenciarPublicacao() {
+    fun PubliTimeScreen() {
         val customFontFamily = FontFamily(
             Font(R.font.font_title)
         )
@@ -229,17 +230,7 @@ class MainActivity : ComponentActivity() {
 
                                     // SUBSTITUIR OS TEXT PELO COMPONENTE DE TIME ( IMPORTAR DO GIT DO GABRIEL)
 
-                                    Text(
-                                        text = "19:00 - 22:00",
-                                        textAlign = TextAlign.Center,
-                                        color = Color.White,
-                                        fontFamily = customFontFamilyText,
-                                        fontWeight = FontWeight(600),
-                                        modifier = Modifier
-                                            .padding(top = 10.dp)
-                                            .width(50.dp)
-                                    )
-
+                                    TimePickerComponent()
 
 
 
@@ -260,8 +251,26 @@ class MainActivity : ComponentActivity() {
                                 Button(
                                     onClick = { /*TODO*/ },
                                     modifier = Modifier
-                                        .padding(top = 20.dp)
-                                        .height(48.dp),
+                                        .padding(top = 20.dp),
+                                    shape = RoundedCornerShape(73.dp),
+                                    colors = ButtonDefaults.buttonColors(RedProliseum)
+
+                                ) {
+                                    Text(
+                                        text = "FECHAR INSCRIÇÃO",
+                                        fontSize = 13.sp,
+                                        textAlign = TextAlign.Center,
+                                        color = Color.White,
+                                        fontFamily = customFontFamilyText,
+                                        fontWeight = FontWeight(900),
+
+                                        )
+                                }
+                                Spacer(modifier = Modifier.width(25.dp))
+                                Button(
+                                    onClick = { /*TODO*/ },
+                                    modifier = Modifier
+                                        .padding(top = 20.dp),
                                     shape = RoundedCornerShape(73.dp),
                                     colors = ButtonDefaults.buttonColors(RedProliseum)
 
@@ -276,26 +285,25 @@ class MainActivity : ComponentActivity() {
 
                                         )
                                 }
-                                Spacer(modifier = Modifier.width(25.dp))
-                                Button(
-                                    onClick = { /*TODO*/ },
-                                    modifier = Modifier
-                                        .padding(top = 20.dp)
-                                        .height(48.dp),
-                                    shape = RoundedCornerShape(73.dp),
-                                    colors = ButtonDefaults.buttonColors(RedProliseum)
 
-                                ) {
-                                    Text(
-                                        text = "EDITAR",
-                                        fontSize = 13.sp,
-                                        textAlign = TextAlign.Center,
-                                        color = Color.White,
-                                        fontFamily = customFontFamilyText,
-                                        fontWeight = FontWeight(900),
+                            }
+                            Button(
+                                onClick = { /*TODO*/ },
+                                modifier = Modifier
+                                    .padding(top = 10.dp),
+                                shape = RoundedCornerShape(73.dp),
+                                colors = ButtonDefaults.buttonColors(RedProliseum)
 
-                                        )
-                                }
+                            ) {
+                                Text(
+                                    text = "EDITAR",
+                                    fontSize = 13.sp,
+                                    textAlign = TextAlign.Center,
+                                    color = Color.White,
+                                    fontFamily = customFontFamilyText,
+                                    fontWeight = FontWeight(900),
+
+                                    )
                             }
 
                             Spacer(modifier = Modifier.height(30.dp))
@@ -306,7 +314,7 @@ class MainActivity : ComponentActivity() {
                             ) {
 
                                 Text(
-                                    text = "PROPOSTAS",
+                                    text = "INSCRITOS",
                                     color = Color.White,
                                     fontSize = 25.sp,
                                     fontWeight = FontWeight(900),
@@ -325,7 +333,7 @@ class MainActivity : ComponentActivity() {
 
                                 ) {
                                     Text(
-                                        text = "GERENCIAR PROPOSTA",
+                                        text = "GERENCIAR INSCRITOS",
                                         fontSize = 11.sp,
                                         textAlign = TextAlign.Center,
                                         color = Color.White,
@@ -338,7 +346,6 @@ class MainActivity : ComponentActivity() {
                             }
 
                             Spacer(modifier = Modifier.height(30.dp))
-
                             Box(
                                 modifier = Modifier
                                     .background(
@@ -349,8 +356,9 @@ class MainActivity : ComponentActivity() {
                                             )
                                         )
                                     )
-                                    .width(280.dp)
+                                    .width(100.dp)
                             ) {
+
                                 Column(
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -358,101 +366,30 @@ class MainActivity : ComponentActivity() {
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
                                     Image(
-                                        painter = painterResource(id = R.drawable.simbolo),
+                                        painter = painterResource(id = R.drawable.superpersonicon),
                                         contentDescription = " ",
                                         alignment = Alignment.Center
                                     )
 
                                     Text(
-                                        text = "BORA ?",
+                                        text = stringResource(id = R.string.label_nome_jogador),
                                         textAlign = TextAlign.Center,
                                         color = Color.White,
                                         fontFamily = customFontFamilyText,
                                         fontWeight = FontWeight(900),
-                                        fontSize = 22.sp,
+                                        fontSize = 12.sp,
                                         modifier = Modifier.padding(top = 10.dp)
                                     )
-
-                                    Column(
-                                        horizontalAlignment = Alignment.CenterHorizontally,
-                                        verticalArrangement = Arrangement.Center
-                                    ) {
-
-                                        Row(
-                                            modifier = Modifier
-                                                .fillMaxSize()
-                                                .padding(16.dp),
-
-                                            ) {
-                                            Button(
-                                                onClick = { /*TODO*/ },
-                                                modifier = Modifier
-                                                    .padding(top = 5.dp),
-                                                shape = RoundedCornerShape(73.dp),
-                                                colors = ButtonDefaults.buttonColors(RedProliseum)
-
-                                            ) {
-                                                Text(
-                                                    text = "MENSAGEM",
-                                                    fontSize = 10.sp,
-                                                    textAlign = TextAlign.Center,
-                                                    color = Color.White,
-                                                    fontFamily = customFontFamilyText,
-                                                    fontWeight = FontWeight(900),
-
-                                                    )
-                                            }
-
-                                            Spacer(modifier = Modifier.width(12.dp))
-                                            
-                                            Button(
-                                                onClick = { /*TODO*/ },
-                                                modifier = Modifier
-                                                    .padding(top = 5.dp),
-                                                shape = RoundedCornerShape(73.dp),
-                                                colors = ButtonDefaults.buttonColors(RedProliseum)
-
-                                            ) {
-                                                Text(
-                                                    text = "RECUSAR",
-                                                    fontSize = 10.sp,
-                                                    textAlign = TextAlign.Center,
-                                                    color = Color.White,
-                                                    fontFamily = customFontFamilyText,
-                                                    fontWeight = FontWeight(900),
-
-                                                    )
-                                            }
-                                        }
-
-                                        Button(
-                                            onClick = { /*TODO*/ },
-                                            modifier = Modifier
-                                                .padding(top = 5.dp),
-                                            shape = RoundedCornerShape(73.dp),
-                                            colors = ButtonDefaults.buttonColors(RedProliseum)
-                                        ) {
-                                            Text(
-                                                text = "ACEITAR",
-                                                fontSize = 15.sp,
-                                                textAlign = TextAlign.Center,
-                                                color = Color.White,
-                                                fontFamily = customFontFamilyText,
-                                                fontWeight = FontWeight(900),
-
-                                                )
-                                        }
-                                    }
                                 }
                             }
                         }
+
                     }
                 }
             }
 
         }
     }
-
 }
 
 
