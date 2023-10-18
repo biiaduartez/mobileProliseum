@@ -97,55 +97,70 @@ fun TimePickerComponent() {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Button(
-                onClick = { isTimePickerVisible = true },
-                colors = ButtonDefaults.buttonColors(RedProliseum)
-            ) {
-                Text(text = "Tempo de fim")
+    }
+}
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        var isTimePickerVisible by remember { mutableStateOf(false) }
+        var selectedTime by remember { mutableStateOf(LocalTime.now()) }
+
+        Button(
+            onClick = { isTimePickerVisible = true },
+            colors = ButtonDefaults.buttonColors(RedProliseum)
+        ) {
+            Text(text = "Tempo de inicio")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = "${selectedTime.hour}:${selectedTime.minute}",
+            color = Color.White,
+            fontWeight = FontWeight(900),
+            fontSize = 22.sp
+        )
+
+        if (isTimePickerVisible) {
+            val timePickerState by remember {
+                mutableStateOf(
+                    androidx.compose.material3.TimePickerState(
+                        initialHour = selectedTime.hour,
+                        initialMinute = selectedTime.minute,
+                        is24Hour = false,
+                    )
+                )
             }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = "${selectedTime.hour}:${selectedTime.minute}",
-                color = Color.White,
-                fontWeight = FontWeight(900),
-                fontSize = 22.sp
-            )
-
-            if (isTimePickerVisible) {
-                val timePickerState by remember {
-                    mutableStateOf(
-                        androidx.compose.material3.TimePickerState(
-                            initialHour = selectedTime.hour,
-                            initialMinute = selectedTime.minute,
-                            is24Hour = false,
+            TimePicker(
+                state = timePickerState,
+                modifier = Modifier.background(
+                    Brush.horizontalGradient(
+                        listOf(
+                            AzulEscuroProliseum, AzulEscuroProliseum
                         )
                     )
-                }
-                TimePicker(
-                    state = timePickerState,
-                    modifier = Modifier.background(
-                        Brush.horizontalGradient(
-                            listOf(
-                                AzulEscuroProliseum, AzulEscuroProliseum
-                            )
-                        )
-                    )
-
                 )
 
-                Button(
-                    onClick = {
-                        isTimePickerVisible = false
-                        selectedTime = LocalTime.of(timePickerState.hour, timePickerState.minute)
-                    },
-                    modifier = Modifier.padding(8.dp),
-                    colors = ButtonDefaults.buttonColors(RedProliseum)
-                ) {
-                    Text(text = "OK")
-                }
+            )
 
+            Button(
+                onClick = {
+                    isTimePickerVisible = false
+                    selectedTime = LocalTime.of(timePickerState.hour, timePickerState.minute)
+                },
+                modifier = Modifier.padding(8.dp),
+                colors = ButtonDefaults.buttonColors(RedProliseum)
+            ) {
+                Text(text = "OK")
+            }
         }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
     }
-}}
+}
+
+

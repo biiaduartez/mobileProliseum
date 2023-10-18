@@ -57,6 +57,7 @@ fun DateInputSample(context: Context) {
     )
 
         Spacer(modifier = Modifier.size(20.dp))
+
         OutlinedTextField(
             value = "${date.value}",
             onValueChange = {datePickerDialog.show()},
