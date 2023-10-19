@@ -220,9 +220,7 @@
 //                            unfocusedBorderColor = Color(255, 255, 255, 255),
 //                            focusedBorderColor = Color(255, 255, 255, 255),
 //                            cursorColor = Color.White,
-//                            disabledBorderColor = = Color.White,
-//                        ),
-//                        textStyle = TextStyle(color = Color.White)
+//
 //                    )
 //                    Spacer(modifier = Modifier.height(20.dp))
 //                    var passwordState by remember { mutableStateOf("") }
@@ -247,7 +245,6 @@
 //                            unfocusedBorderColor = Color(255, 255, 255, 255),
 //                            focusedBorderColor = Color(255, 255, 255, 255),
 //                            cursorColor = Color.White,
-//                            placeholderColor = Color.White,
 //                        ),
 //                        textStyle = TextStyle(color = Color.White)
 //                    )
