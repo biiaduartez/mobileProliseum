@@ -69,15 +69,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MobileProliseumTheme {
-                PropostaJogadorScreen()
             }
         }
     }
 
-    @Composable
-    fun PropostaJogadorScreen() {
-
-    }
 
 }
 
