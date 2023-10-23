@@ -46,12 +46,9 @@ import com.example.mobileproliseum.components.CustomButtonWithText
 import com.example.mobileproliseum.components.TimePickerComponent
 import com.example.mobileproliseum.ui.theme.AzulEscuroProliseum
 import com.example.mobileproliseum.ui.theme.BlackTransparentProliseum
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun criarPubliJogadorScreen(){
-    @OptIn(ExperimentalMaterial3Api::class)
-    @Composable
-    fun criarPubliTimeScreen() {
         val customFontFamilyTitle = FontFamily(Font(R.font.font_title))
         val customFontFamilyText = FontFamily(Font(R.font.font_poppins))
         val context = LocalContext.current
@@ -207,4 +204,3 @@ fun criarPubliJogadorScreen(){
         }
     }
 
-}
