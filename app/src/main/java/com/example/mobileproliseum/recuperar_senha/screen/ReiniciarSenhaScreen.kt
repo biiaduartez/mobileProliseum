@@ -45,6 +45,7 @@
 //import androidx.compose.ui.unit.sp
 //import com.example.mobileproliseum.MainActivity
 //import com.example.mobileproliseum.R
+//import com.example.mobileproliseum.components.CustomButtonWithText
 //import com.example.mobileproliseum.ui.theme.AzulEscuroProliseum
 //import com.example.mobileproliseum.ui.theme.BlackTransparentProliseum
 //import com.example.mobileproliseum.ui.theme.MobileProliseumTheme
@@ -52,7 +53,7 @@
 //
 //@OptIn(ExperimentalMaterial3Api::class)
 //@Composable
-//fun ReiniciarSenhaScreen(){
+//fun ReiniciarSenhaScreen() {
 //
 //    val customFontFamily = FontFamily(
 //        Font(R.font.font_title)
@@ -183,37 +184,43 @@
 //                            unfocusedBorderColor = Color(255, 255, 255, 255),
 //                            focusedBorderColor = Color(255, 255, 255, 255),
 //                            cursorColor = Color.White,
-//                            placeholderColor = Color.White,
 //                        ),
 //                        textStyle = TextStyle(color = Color.White)
 //                    )
 //
 //                    Spacer(modifier = Modifier.height(50.dp))
 //
-//                    Button(
-//                        onClick = { /*TODO*/ },
-//                        modifier = Modifier
-//                            .padding(top = 20.dp)
-//                            .width(300.dp)
-//                            .height(48.dp),
-//                        shape = RoundedCornerShape(73.dp),
-//                        colors = ButtonDefaults.buttonColors(RedProliseum)
-//
+//                    CustomButtonWithText(
+//                        text = stringResource(id = R.string.button_recuperar_senha),
+//                        size = "5rem"
 //                    ) {
-//                        Icon(
-//                            painter = painterResource(id = R.drawable.logocadastro),
-//                            contentDescription = stringResource(id = R.string.button_proximo),
-//                            tint = Color(255, 255, 255, 255)
-//                        )
-//                        Text(
-//                            text = stringResource(id = R.string.button_recuperar_senha),
-//                            fontWeight = FontWeight(900),
-//                            fontFamily = customFontFamilyText,
-//                            fontSize = 22.sp,
-//                            textAlign = TextAlign.Center,
-//                            color = Color.White
-//                        )
+//
 //                    }
+//
+////                    Button(
+////                        onClick = { /*TODO*/ },
+////                        modifier = Modifier
+////                            .padding(top = 20.dp)
+////                            .width(300.dp)
+////                            .height(48.dp),
+////                        shape = RoundedCornerShape(73.dp),
+////                        colors = ButtonDefaults.buttonColors(RedProliseum)
+////
+////                    ) {
+////                        Icon(
+////                            painter = painterResource(id = R.drawable.logocadastro),
+////                            contentDescription = stringResource(id = R.string.button_proximo),
+////                            tint = Color(255, 255, 255, 255)
+////                        )
+////                        Text(
+////                            text = stringResource(id = R.string.button_recuperar_senha),
+////                            fontWeight = FontWeight(900),
+////                            fontFamily = customFontFamilyText,
+////                            fontSize = 22.sp,
+////                            textAlign = TextAlign.Center,
+////                            color = Color.White
+////                        )
+////                    }
 //                }
 //
 //            }
@@ -226,6 +233,6 @@
 //@Composable
 //fun ReiniciarSenhaScreenPreview() {
 //    MobileProliseumTheme {
-//       ReiniciarSenhaScreen()
+//        ReiniciarSenhaScreen()
 //    }
 //}

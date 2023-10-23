@@ -31,10 +31,12 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mobileproliseum.MainActivity
 import com.example.mobileproliseum.R
+import com.example.mobileproliseum.jogadorDisponivel.screen.JogadoresDisponiveisScreen
 import com.example.mobileproliseum.ui.theme.AzulEscuroProliseum
 import com.example.mobileproliseum.ui.theme.BlackTransparentProliseum
 import com.example.mobileproliseum.ui.theme.RedProliseum
@@ -420,4 +422,10 @@ fun PubliJogadorScreen() {
         }
 
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PubliJogadorPreview() {
+    PubliJogadorScreen()
 }

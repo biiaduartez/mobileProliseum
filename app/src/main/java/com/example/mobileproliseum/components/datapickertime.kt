@@ -112,7 +112,7 @@ fun TimePickerComponent() {
             onClick = { isTimePickerVisible = true },
             colors = ButtonDefaults.buttonColors(RedProliseum)
         ) {
-            Text(text = "Tempo de inicio")
+            Text(text = "Tempo de fim")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
